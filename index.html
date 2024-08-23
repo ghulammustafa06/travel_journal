@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Travel Journal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>My Travel Journal</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#journal">Journal</a></li>
+                <li><a href="#map">Map</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="section">
+        <h2>Welcome to My Travel Journal</h2>
+        <p>Document your adventures, upload photos, and track your journeys on the map!</p>
+    </section>
+
+    <section id="journal" class="section">
+        <h2>Your Entries</h2>
+        <div class="entry-form">
+            <input type="text" placeholder="Title of your journey" id="journey-title">
+            <textarea placeholder="Write about your experience..." id="journey-text"></textarea>
+            <input type="file" id="journey-photo">
+            <button id="add-entry">Add Entry</button>
+        </div>
+        <div id="entries"></div>
+    </section>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
