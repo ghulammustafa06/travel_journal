@@ -292,25 +292,75 @@ nav ul li a i {
     opacity: 1;
 }
 
-footer {
-    background-color: #2c3e50;
-    color: white;
-    padding: 10px 0;
+.entry h3, .entry p {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.entry:hover h3, .entry:hover p {
+    transform: translateY(-10px);
+    opacity: 0.9;
+}
+
+#map-container {
+    border: 5px solid var(--white);
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.floating-icon {
+    animation: pulse 2s infinite;
+}
+
+@media (max-width: 768px) {
+    .file-input {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #file-name {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    #remove-file {
+        margin-top: 10px;
+    }
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.7);;
+    color: var(--white);
+    padding: 20px 0;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
 }
 
-
-#map-controls input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.footer p {
+    margin: 0; 
+    font-size: 14px; 
+    font-family: karla, sans-serif; 
 }
 
-#map-controls button {
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
 }
