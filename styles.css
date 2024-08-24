@@ -143,36 +143,70 @@ nav ul li a i {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     outline: none;
 }
-
-.file-input {
-    margin-bottom: 15px;
-}
-
-.file-input label {
-    display: inline-block;
+.entry-form button:hover {
     background-color: var(--primary-color);
-    color: var(--white);
-    padding: 12px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.file-input label:hover {
-    background-color: var(--secondary-color);
     transform: scale(1.05);
 }
 
-.entry-form button {
+#entries {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 30px;
+}
+
+.entry {
+    background-color: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.entry:hover {
+    transform: translateY(-10px) rotate(2deg);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.entry img {
     width: 100%;
-    background-color: var(--secondary-color);
-    color: var(--white);
-    border: none;
-    border-radius: 30px;
-    padding: 12px 25px;
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
+    height: 200px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.entry:hover img {
+    transform: scale(1.1);
+}
+
+.entry h3 {
+    color: var(--primary-color);
+    font-size: 1.5em;
+    margin: 20px;
+}
+
+.entry p {
+    color: #666;
+    margin: 0 20px 20px;
+    line-height: 1.6;
+}
+
+.floating-icon {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-size: 2em;
+    color: var(--primary-color);
+    background-color: var(--white);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow);
+    animation: float 3s ease-in-out infinite;
     transition: all 0.3s ease;
 }
 
