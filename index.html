@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
     <title>My Travel Journal</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -40,6 +44,17 @@
         <div id="map-container"></div>
     </section>
 
+    <section id="map" class="section">
+        <h2>Interactive Map</h2>
+        <div id="map-controls">
+            <input type="text" id="lat" placeholder="Latitude">
+            <input type="text" id="lng" placeholder="Longitude">
+            <button id="add-marker">Add Marker</button>
+        </div>
+        <div id="map-container"></div>
+    </section>
+    
+
     <section id="about" class="section">
         <h2>About This Journal</h2>
         <p>This is a personal project to document and visualize my travel experiences.</p>
@@ -49,8 +64,6 @@
         <p>&copy; 2024 My Travel Journal</p>
     </footer>
 
-
     <script src="scripts.js"></script>
 </body>
 </html>
-
