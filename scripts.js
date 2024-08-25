@@ -56,28 +56,53 @@ const saveData = () => {
     }
 };
 
-const createEntryElement = (entry, index) => {
-    const entryDiv = document.createElement('div');
-    entryDiv.className = 'entry';
-    entryDiv.innerHTML = `
-        <div class="entry-image" style="background-image: url('${entry.photo}')"></div>
-        <div class="entry-content">
-            <h3>${entry.title}</h3>
-            <p>${entry.text}</p>
-            <button class="delete-entry" data-index="${index}">
-                <i class="fas fa-trash-alt"></i> Delete
-            </button>
+const addMarkerToMap = (marker, index) => {
+    const markerInstance = L.marker([marker.lat, marker.lng], {icon: customIcon}).addTo(map);
+    const popupContent = `
+        <div class="custom-popup">
+            <h3>${marker.popupText}</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Lat: ${marker.lat.toFixed(6)}, Lng: ${marker.lng.toFixed(6)}</p>
+            <p><i class="fas fa-globe-americas"></i> ${marker.country}</p>
+            <p><i class="far fa-calendar-alt"></i> ${new Date(marker.date).toLocaleDateString()}</p>
+            <button class="delete-marker" data-index="${index}">Delete Marker</button>
         </div>
     `;
-    
-    const deleteButton = entryDiv.querySelector('.delete-entry');
-    deleteButton.addEventListener('click', () => {
-        entries.splice(index, 1);
-        saveData();
-        renderEntries();
-    });
-    
-    return entryDiv;
+    markerInstance.bindPopup(popupContent);
+
+    journeyLine.addLatLng([marker.lat, marker.lng]);
+    map.fitBounds(journeyLine.getBounds());
+};
+
+
+const clearForm = () => {
+    elements.journeyTitle.value = '';
+    elements.journeyText.value = '';
+    elements.fileInput.value = '';
+    elements.fileName.textContent = '';
+    elements.removeFileBtn.style.display = 'none';
+    elements.fileLabel.innerHTML = '<i class="fas fa-camera"></i> Add Photos';
+};
+
+const getWeather = (lat, lng) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            elements.weatherWidget.innerHTML = `
+                <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="Weather icon">
+                <div>
+                    <h3>${data.name}</h3>
+                    <p>${data.weather[0].description}</p>
+                    <p>Temperature: ${Math.round(data.main.temp)}°C</p>
+                    <p>Humidity: ${data.main.humidity}%</p>
+                </div>
+            `;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            elements.weatherWidget.innerHTML = '<p>Weather data unavailable</p>';
+        });
 };
 
 function createEntryElement(entry) {
