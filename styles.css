@@ -308,6 +308,70 @@ nav ul li a i {
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
+#weather-widget {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    border-radius: 15px;
+    padding: 20px;
+    color: #333;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+#weather-icon {
+    font-size: 4em;
+    margin-right: 20px;
+}
+
+#weather-info h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+#weather-info p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+#statistics {
+    text-align: center;
+}
+
+#stats-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.stat-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+}
+
+.stat-item i {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.stat-item p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
