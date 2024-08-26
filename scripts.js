@@ -56,6 +56,31 @@ const saveData = () => {
     }
 };
 
+const createEntryElement = (entry, index) => {
+    const entryDiv = document.createElement('div');
+    entryDiv.className = 'entry';
+    entryDiv.innerHTML = `
+        <div class="entry-image" style="background-image: url('${entry.photo}')"></div>
+        <div class="entry-content">
+            <h3>${entry.title}</h3>
+            <p>${entry.text}</p>
+            <button class="delete-entry" data-index="${index}">
+                <i class="fas fa-trash-alt"></i> Delete
+            </button>
+        </div>
+    `;
+    
+    const deleteButton = entryDiv.querySelector('.delete-entry');
+    deleteButton.addEventListener('click', () => {
+        entries.splice(index, 1);
+        saveData();
+        renderEntries();
+    });
+    
+    return entryDiv;
+};
+
+
 const addMarkerToMap = (marker, index) => {
     const markerInstance = L.marker([marker.lat, marker.lng], {icon: customIcon}).addTo(map);
     const popupContent = `
@@ -250,4 +275,53 @@ document.querySelectorAll('nav a').forEach(anchor => {
         const targetId = this.getAttribute('href').substring(1);
         document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
     });
+});
+
+
+document.getElementById('entries').addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-entry') || e.target.closest('.delete-entry')) {
+        const index = parseInt(e.target.closest('.delete-entry').dataset.index);
+        entries.splice(index, 1);
+        saveData();
+        renderEntries();
+    }
+});
+
+elements.entriesContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-entry') || e.target.closest('.delete-entry')) {
+        const index = parseInt(e.target.closest('.delete-entry').dataset.index);
+        entries.splice(index, 1);
+        saveData();
+        renderEntries();
+    }
+});
+
+elements.currentLocationBtn.addEventListener('click', () => {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const { latitude: lat, longitude: lng } = position.coords;
+            map.setView([lat, lng], 13);
+        });
+    } else {
+        alert("Geolocation is not available in your browser.");
+    }
+});
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-marker') || e.target.closest('.delete-marker')) {
+        const index = parseInt(e.target.closest('.delete-marker').dataset.index);
+        markers.splice(index, 1);
+        saveData();
+        renderMarkers();
+        updateStatistics();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    getWeather(DEFAULT_COORDS.lat, DEFAULT_COORDS.lng);
+    entries = JSON.parse(localStorage.getItem('entries')) || [];
+    markers = JSON.parse(localStorage.getItem('markers')) || [];
+    renderEntries();
+    renderMarkers();
+    updateStatistics();
 });
