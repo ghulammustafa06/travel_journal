@@ -215,26 +215,39 @@ const addEntry = (title, text, photo) => {
     clearForm();
 };
 
+map.on('click', (e) => {
+    const { lat, lng } = e.latlng;
+    const popupText = prompt('Enter a name for this location:') || 'New Marker';
+    const country = prompt('Enter the country:') || 'Unknown';
+    const marker = { 
+        lat, 
+        lng, 
+        popupText,
+        country,
+        date: new Date().toISOString()
+    };
+    markers.push(marker);
+    renderMarkers();
+    saveData();
+    getWeather(lat, lng);
+    updateStatistics();
+});
 
-
-addJourneyBtn.addEventListener('click', function(e) {
+elements.addJourneyBtn.addEventListener('click', (e) => {
     e.preventDefault();
     document.querySelector('.entry-form').scrollIntoView({ behavior: 'smooth' });
 });
 
-entries.forEach(entry => entriesContainer.appendChild(createEntryElement(entry)));
-markers.forEach(addMarkerToMap);
+elements.journeyText.addEventListener('input', function() {
+    const remaining = MAX_CHARS - this.value.length;
+    elements.charCount.textContent = `${this.value.length} / ${MAX_CHARS}`;
+    elements.charCount.style.color = remaining < 0 ? 'red' : 'inherit';
+});
 
-document.getElementById('current-location').addEventListener('click', function() {
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-            document.getElementById('lat').value = lat;
-            document.getElementById('lng').value = lng;
-            map.setView([lat, lng], 13);
-        });
-    } else {
-        alert("Geolocation is not available in your browser.");
-    }
+document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+    });
 });

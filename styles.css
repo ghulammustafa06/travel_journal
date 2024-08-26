@@ -535,3 +535,32 @@ nav ul li a i {
 .entry-content {
     padding: 20px;
 }
+
+
+.entry-content {
+    padding: 20px;
+}
+
+.entry h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.entry p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.delete-entry {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-entry:hover {
+    background-color: #ff4757;
+}
