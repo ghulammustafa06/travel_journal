@@ -512,3 +512,26 @@ nav ul li a i {
     50% { transform: translateY(-20px); }
     100% { transform: translateY(0px); }
 }
+
+.entry {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.entry:hover {
+    transform: translateY(-5px);
+}
+
+.entry-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.entry-content {
+    padding: 20px;
+}
