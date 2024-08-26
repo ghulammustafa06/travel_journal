@@ -651,3 +651,104 @@ nav ul li a i {
 .custom-popup .delete-marker:hover {
     background-color: rgba(255, 255, 255, 0.4);
 }
+
+@media (max-width: 1200px) {
+    header {
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo img {
+        width: 80px;
+    }
+
+    .logo h1 {
+        font-size: 1.5em;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .entry-form {
+        padding: 20px;
+    }
+
+    .entry-form h3 {
+        font-size: 1.5em;
+    }
+
+    .entry-form input[type="text"],
+    .entry-form textarea {
+        padding: 10px;
+    }
+
+    .entry-form button {
+        padding: 10px 20px;
+    }
+
+    #entries {
+        grid-template-columns: 1fr;
+    }
+
+    .floating-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px;
+    }
+
+    .logo img {
+        width: 60px;
+    }
+
+    .logo h1 {
+        font-size: 1.2em;
+    }
+
+    nav ul {
+        gap: 5px;
+    }
+
+    .section {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .entry-form {
+        padding: 10px;
+    }
+
+    .entry-form h3 {
+        font-size: 1.2em;
+    }
+
+    .entry-form input[type="text"],
+    .entry-form textarea {
+        padding: 5px;
+    }
+
+    .entry-form button {
+        padding: 5px 10px;
+    }
+
+    .floating-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+    }
+}
