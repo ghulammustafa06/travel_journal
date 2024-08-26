@@ -105,39 +105,68 @@ const getWeather = (lat, lng) => {
         });
 };
 
-function createEntryElement(entry) {
-    const entryDiv = document.createElement('div');
-    entryDiv.className = 'entry';
-    entryDiv.innerHTML = `
-        <img src="${entry.photo}" alt="${entry.title}">
-        <h3>${entry.title}</h3>
-        <p>${entry.text}</p>
-    `;
-    return entryDiv;
-}
-
-function addMarkerToMap(marker) {
-    L.marker([marker.lat, marker.lng]).addTo(map)
-        .bindPopup(marker.popupText)
-        .openPopup();
-}
-
-function clearForm() {
-    document.getElementById('journey-title').value = '';
-    document.getElementById('journey-text').value = '';
-    fileInput.value = '';
-    fileName.textContent = '';
-    removeFileBtn.style.display = 'none';
-    fileLabel.innerHTML = '<i class="fas fa-camera"></i> Add Photos';
-}
-
-fileInput.addEventListener('change', function(e) {
-    if (this.files && this.files[0]) {
-        fileName.textContent = this.files[0].name;
-        removeFileBtn.style.display = 'inline-block';
-        fileLabel.innerHTML = '<i class="fas fa-edit"></i> Change Photo';
+const updateStatistics = () => {
+    elements.placesVisited.textContent = markers.length;
+    
+    let totalDistance = 0;
+    let countries = new Set();
+    
+    for (let i = 1; i < markers.length; i++) {
+        const from = L.latLng(markers[i-1].lat, markers[i-1].lng);
+        const to = L.latLng(markers[i].lat, markers[i].lng);
+        totalDistance += from.distanceTo(to);
+        countries.add(markers[i].country);
     }
-});
+    
+    elements.totalDistance.textContent = `${(totalDistance / 1000).toFixed(2)} km`;
+    elements.countriesVisited.textContent = countries.size;
+};
+
+const renderEntries = () => {
+    elements.entriesContainer.innerHTML = '';
+    entries.forEach((entry, index) => {
+        const entryElement = createEntryElement(entry, index);
+        elements.entriesContainer.appendChild(entryElement);
+    });
+};
+
+const renderMarkers = () => {
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+    journeyLine.setLatLngs([]);
+    
+    markers.forEach((marker, index) => {
+        addMarkerToMap(marker, index);
+    });
+
+    updateMarkersList();
+};
+
+const updateMarkersList = () => {
+    elements.markersListContainer.innerHTML = '';
+    markers.forEach((marker, index) => {
+        const markerItem = document.createElement('div');
+        markerItem.className = 'marker-item';
+        markerItem.innerHTML = `
+            <div class="marker-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="marker-content">
+                <h4>${marker.popupText}</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Lat: ${marker.lat.toFixed(6)}, Lng: ${marker.lng.toFixed(6)}</p>
+                <p><i class="far fa-calendar-alt"></i> ${new Date(marker.date).toLocaleDateString()}</p>
+                <p><i class="fas fa-globe-americas"></i> ${marker.country}</p>
+            </div>
+            <button class="delete-marker" data-index="${index}">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        elements.markersListContainer.appendChild(markerItem);
+    });
+};
 
 removeFileBtn.addEventListener('click', function(e) {
     e.preventDefault();
